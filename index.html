@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Exemple de site</title>
+<meta name="description" content="Exemple de site internet pour artisans et commerçants de l'Ain.">
+<style>
+:root{
+  --accent:#0f766e; --accent-dark:#0b5a54; --accent-soft:#e6f4f2;
+  --ink:#16191d; --muted:#5a6470; --line:#e4e7eb; --bg:#fff; --bg-alt:#f6f7f9;
+  --radius:16px; --shadow:0 10px 30px rgba(15,25,40,.10);
+  --why:#fff7d6; --why-ink:#5c4400; --why-line:#f1d77a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block;max-width:100%}
+svg{display:block;flex:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+button{font:inherit}
+
+/* ---------- barre démo ---------- */
+.demobar{background:#14181d;color:#cfd6de;font-size:14px}
+.demobar .wrap{display:flex;align-items:center;gap:10px;padding-top:9px;padding-bottom:9px;overflow-x:auto;scrollbar-width:none}
+.demobar .wrap::-webkit-scrollbar{display:none}
+.demobar small{white-space:nowrap;color:#9aa5b1;font-size:13px}
+.chip{white-space:nowrap;border:1px solid #39424c;background:transparent;color:#e6ebf0;border-radius:999px;padding:6px 13px;font-size:13.5px;font-weight:600;cursor:pointer}
+.chip:hover{border-color:#8996a3}
+.chip[aria-pressed="true"]{background:#fff;color:#14181d;border-color:#fff}
+.chip-offre{background:#f5c542;border-color:#f5c542;color:#14181d;text-decoration:none}
+
+/* ---------- en-tête ---------- */
+header.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;height:66px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:750;text-decoration:none;font-size:18px;letter-spacing:-.01em;min-width:0}
+.brand span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo{width:40px;height:40px;border-radius:11px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 22px;border-radius:999px;font-weight:650;text-decoration:none;border:2px solid transparent;font-size:16px;cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s;line-height:1.2}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-light{background:#fff;color:var(--ink)}
+.btn-outline{border-color:rgba(255,255,255,.7);color:#fff}
+.btn-outline:hover{background:rgba(255,255,255,.12)}
+.btn-ghost{border-color:var(--line);background:#fff}
+.btn-sm{padding:9px 16px;font-size:15px}
+
+/* ---------- héros ---------- */
+.hero{position:relative;color:#fff;overflow:hidden;background:#222}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.02)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,14,20,.88) 0%,rgba(10,14,20,.62) 48%,rgba(10,14,20,.25) 100%)}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:end;padding-top:92px;padding-bottom:72px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:650;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:6px 13px;border-radius:999px;margin-bottom:18px;backdrop-filter:blur(4px)}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.07;margin:0 0 18px;letter-spacing:-.025em;max-width:16em}
+.lead{font-size:clamp(17px,1.6vw,20px);color:rgba(255,255,255,.86);margin:0 0 28px;max-width:33em}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.trust{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:26px;font-size:15px;color:rgba(255,255,255,.9)}
+.trust span{display:flex;align-items:center;gap:7px}
+.hero-card{background:#fff;color:var(--ink);border-radius:20px;padding:22px;box-shadow:var(--shadow);display:grid;gap:14px}
+.gnote{display:flex;align-items:center;gap:12px}
+.gnote b{font-size:30px;line-height:1}
+.gstars{color:#f4b400;font-size:18px;letter-spacing:1px;line-height:1}
+.gnote small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+.status{display:flex;align-items:center;gap:9px;font-weight:650;font-size:15px;padding:10px 12px;border-radius:12px;background:var(--bg-alt)}
+.dot{width:10px;height:10px;border-radius:50%;background:#9aa3ad;flex:none}
+.status.open .dot{background:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.18)}
+.status.closed .dot{background:#dc2626}
+.status small{font-weight:500;color:var(--muted)}
+.hero-card .line{display:flex;gap:10px;align-items:center;font-size:15px;color:var(--muted)}
+.hero-card .line a{color:var(--ink);font-weight:650;text-decoration:none}
+
+/* ---------- sections ---------- */
+section{padding:84px 0}
+section.alt{background:var(--bg-alt)}
+.sec-head{max-width:660px;margin-bottom:38px}
+.kicker{font-size:13px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h2{font-size:clamp(27px,3.4vw,38px);line-height:1.15;margin:6px 0 12px;letter-spacing:-.02em}
+.sec-head p{color:var(--muted);margin:0;font-size:18px}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.card h3{margin:16px 0 6px;font-size:19px;letter-spacing:-.01em}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.price{display:inline-block;margin-top:12px;font-weight:700;color:var(--accent-dark);background:var(--accent-soft);padding:4px 11px;border-radius:999px;font-size:14px}
+.ico{width:48px;height:48px;border-radius:13px;background:var(--accent-soft);color:var(--accent-dark);display:grid;place-items:center}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.about-img{border-radius:22px;aspect-ratio:4/3.4;object-fit:cover;width:100%;box-shadow:var(--shadow)}
+.about p.txt{color:var(--muted);font-size:18px;margin:0 0 22px}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.checks li{display:flex;gap:12px;align-items:flex-start}
+.checks .ck{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;margin-top:2px;flex:none}
+.checks b{display:block}
+.checks span{color:var(--muted);font-size:16px}
+
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:190px;gap:12px}
+.gallery button{all:unset;cursor:zoom-in;position:relative;border-radius:14px;overflow:hidden;grid-column:span 2}
+.gallery button:first-child{grid-column:span 4;grid-row:span 2}
+.gallery.n3 button,.gallery.n3 button:first-child{grid-column:span 2;grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.gallery button:hover img{transform:scale(1.05)}
+.gallery figcaption{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.55);color:#fff;font-size:14px;font-weight:600;padding:4px 11px;border-radius:999px}
+.lightbox{position:fixed;inset:0;z-index:60;background:rgba(8,10,14,.9);display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+.lightbox.on{display:flex}
+.lightbox img{max-height:86vh;border-radius:12px}
+
+.reviews-top{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.reviews-top .big{font-size:44px;font-weight:800;line-height:1}
+.review{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column}
+.review p{margin:12px 0 16px;font-size:16.5px;flex:1}
+.who{display:flex;align-items:center;gap:10px;font-size:15px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent-dark);display:grid;place-items:center;font-weight:750}
+.who small{display:block;color:var(--muted);font-size:13px}
+
+.faq{max-width:780px;display:grid;gap:10px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 20px}
+.faq summary{cursor:pointer;font-weight:650;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;line-height:1;color:var(--accent)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:0 0 16px;color:var(--muted)}
+
+.zone-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:32px;align-items:start}
+.zone{display:flex;flex-wrap:wrap;gap:9px}
+.zone span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:15px}
+.map{width:100%;aspect-ratio:4/3;border:0;border-radius:18px;background:var(--bg-alt);box-shadow:var(--shadow)}
+
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px}
+.info-list{display:grid;gap:18px;margin-top:8px}
+.info-list>div{display:flex;gap:13px}
+.info-list .ico{width:42px;height:42px}
+.hours{width:100%;border-collapse:collapse;font-size:15px;margin-top:4px}
+.hours td{padding:6px 0;border-bottom:1px dashed var(--line)}
+.hours td:last-child{text-align:right;color:var(--muted)}
+.hours tr.today td{font-weight:700;color:var(--ink)}
+form{display:grid;gap:13px}
+label{font-size:14px;font-weight:650;display:grid;gap:6px}
+input,textarea,select{font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:#fff;width:100%;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:3px solid var(--accent-soft);border-color:var(--accent)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-ok{display:none;background:#e7f6ec;color:#1d6b38;border-radius:11px;padding:12px 14px;font-size:15px}
+.rgpd{font-size:13px;color:var(--muted);margin:0}
+
+footer{background:#101317;color:#b9c2cc;padding:40px 0 30px;font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px}
+footer a{color:#fff}
+
+/* ---------- barre d'appel mobile ---------- */
+.mbar{display:none}
+
+/* ---------- mode explications ---------- */
+.why{display:none;background:var(--why);color:var(--why-ink);border:1px solid var(--why-line);border-radius:14px;padding:12px 16px 12px 14px;margin:0 0 22px;font-size:15px;line-height:1.5;gap:11px;align-items:flex-start;max-width:760px}
+.why b{color:#3d2e00}
+.why .n{width:26px;height:26px;border-radius:50%;background:#f5c542;color:#3d2e00;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+body.explain .why{display:flex}
+.hero .why{background:rgba(255,247,214,.96)}
+.why-toggle{position:fixed;left:16px;bottom:16px;z-index:40;display:flex;align-items:center;gap:9px;background:#14181d;color:#fff;border:0;border-radius:999px;padding:12px 18px;font-weight:650;font-size:15px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.why-toggle .bulb{width:22px;height:22px;border-radius:50%;background:#f5c542;color:#14181d;display:grid;place-items:center;font-size:13px;font-weight:800}
+body.explain .why-toggle{background:#f5c542;color:#14181d}
+body.explain .why-toggle .bulb{background:#14181d;color:#f5c542}
+
+/* ---------- offre ---------- */
+.offre{background:#101317;color:#e9edf1;padding:90px 0}
+.offre .kicker{color:#f5c542}
+.offre h2{color:#fff;font-size:clamp(30px,4.2vw,46px)}
+.offre .sec-head p{color:#aab4bf}
+.offre-top{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:start}
+.pricebox{background:#fff;color:var(--ink);border-radius:22px;padding:30px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.pricebox .amount{font-size:58px;font-weight:850;letter-spacing:-.03em;line-height:1}
+.pricebox .amount small{font-size:18px;font-weight:600;color:var(--muted);letter-spacing:0}
+.pricebox .sub{color:var(--muted);margin:8px 0 20px}
+.incl{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:10px;font-size:16px}
+.incl li{display:flex;gap:10px;align-items:flex-start}
+.incl svg{color:#16a34a;margin-top:3px}
+.pricebox .btn{width:100%}
+.pricebox .alt-cta{display:flex;gap:10px;margin-top:10px}
+.pricebox .alt-cta .btn{flex:1}
+.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.cmp{border:1px solid #2a323b;border-radius:16px;padding:20px;background:#161a1f}
+.cmp h4{margin:0 0 6px;font-size:16px;color:#fff}
+.cmp .v{font-size:24px;font-weight:800;color:#fff;margin-bottom:6px}
+.cmp p{margin:0;color:#9ea9b5;font-size:14.5px}
+.cmp.me{border-color:#f5c542;background:#1d1a10}
+.cmp.me .v{color:#f5c542}
+.roi{margin-top:0;border:1px solid #2a323b;border-radius:20px;padding:26px;background:#161a1f;display:grid;grid-template-columns:1fr;gap:20px;align-items:start}
+.roi h3{margin:0 0 8px;color:#fff;font-size:22px}
+.roi p{margin:0;color:#9ea9b5;font-size:15px}
+.roi label{color:#cfd6de;font-weight:600}
+.roi input{background:#0f1215;border-color:#2f3842;color:#fff}
+.roi .res{font-size:17px;color:#e9edf1;line-height:1.5}
+.roi .res b{color:#f5c542;font-size:22px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.step{border-radius:16px;padding:22px;background:#161a1f;border:1px solid #2a323b}
+.step .num{width:34px;height:34px;border-radius:50%;background:#f5c542;color:#14181d;display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.step b{color:#fff;display:block;margin-bottom:4px}
+.step p{margin:0;color:#9ea9b5;font-size:15px}
+.offre .faq details{background:#161a1f;border-color:#2a323b}
+.offre .faq summary{color:#fff}
+.offre .faq details p{color:#aab4bf}
+.offre .faq summary::after{color:#f5c542}
+.offre h3.sm{color:#fff;font-size:22px;margin:44px 0 14px}
+
+@media (max-width:900px){
+  .hero .wrap,.about,.zone-wrap,.contact,.offre-top,.roi{grid-template-columns:1fr}
+  .g3,.compare,.steps{grid-template-columns:1fr 1fr}
+  .top nav{display:none}
+  section{padding:64px 0}
+  .hero .wrap{padding-top:64px;padding-bottom:48px}
+  .gallery{grid-auto-rows:150px}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .g3,.row2,.compare,.steps{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:130px;gap:8px}
+  .gallery button,.gallery.n3 button{grid-column:span 1;grid-row:span 1}
+  .gallery button:first-child,.gallery.n3 button:first-child{grid-column:span 2;grid-row:span 2}
+  .top .btn-sm{display:none}
+  .hero::after{background:linear-gradient(180deg,rgba(10,14,20,.55) 0%,rgba(10,14,20,.85) 70%)}
+  .cta-row .btn{flex:1}
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:35;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line)}
+  .mbar .btn{padding:12px 10px;font-size:15px}
+  footer{padding-bottom:30px}
+  .offre{padding-bottom:150px}
+  .why-toggle{bottom:84px;left:12px;padding:10px 14px;font-size:14px}
+  .pricebox{padding:22px}
+  .pricebox .alt-cta{flex-direction:column}
+  body.in-offre .mbar,body.in-offre .why-toggle{display:none}
+  .pricebox .amount{font-size:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+     DÉMO « site vitrine » : tout le contenu est dans le script en bas.
+     - VENDEUR : ton prénom, ton numéro, ton offre.
+     - NEUTRE + METIERS : les textes et photos de chaque exemple.
+     Liens utiles : ?m=garage (métier)  ·  &x=1 (explications ouvertes)  ·  #offre
+     Photos : StockSnap via Openverse, licence CC0 (aucune mention obligatoire).
+     ===================================================================== -->
+
+<div class="demobar" id="demobar"><div class="wrap">
+  <small>Site d'exemple · entreprise fictive · voir pour :</small>
+  <span id="chips" style="display:contents"></span>
+  <a class="chip chip-offre" href="#offre">L'offre à <span data-s="prix"></span> €</a>
+</div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="logo" data-k="initiales"></span><span data-k="nom"></span></a>
+    <nav>
+      <a href="#services" data-k="navServices"></a>
+      <a href="#photos">Photos</a>
+      <a href="#avis">Avis</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" data-tel><span data-i="tel"></span><span data-k="telAffiche"></span></a>
+  </div>
+</header>
+
+<section class="hero" id="top" style="padding:0">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap">
+    <div>
+      <div class="why"><span class="n">1</span><div><b>Compris en 3 secondes.</b> Ce que vous faites, où, et deux boutons pour vous joindre : appeler ou demander un devis. Sur un téléphone, le visiteur n'a rien à chercher.</div></div>
+      <span class="eyebrow"><span data-i="pin"></span><span data-k="accroche"></span></span>
+      <h1 data-k="titre"></h1>
+      <p class="lead" data-k="sousTitre"></p>
+      <div class="cta-row">
+        <a class="btn btn-light" href="#contact" data-k="cta"></a>
+        <a class="btn btn-outline" data-tel><span data-i="tel"></span>Appeler</a>
+      </div>
+      <div class="trust" id="trust"></div>
+    </div>
+    <div>
+      <div class="why"><span class="n">2</span><div><b>Votre note Google et « Ouvert maintenant ».</b> La note rassure avant même le premier appel. L'ouverture se met à jour toute seule selon vos horaires.</div></div>
+      <div class="hero-card">
+        <div class="gnote"><b data-k="note"></b><div><div class="gstars">★★★★★</div><small><span data-k="nbAvis"></span> avis Google</small></div></div>
+        <div class="status" id="status"><span class="dot"></span><span id="statusTxt"></span></div>
+        <div class="line"><span data-i="pin"></span><span data-k="adresse"></span></div>
+        <div class="line"><span data-i="tel"></span><a data-tel data-k="telAffiche"></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="why"><span class="n">3</span><div><b>Vos prestations, avec les mots de vos clients.</b> Chaque service est écrit comme les gens le tapent dans Google (« <span data-k="exempleRecherche"></span> »). C'est ce qui vous fait apparaître dans les recherches de votre secteur.</div></div>
+    <div class="sec-head">
+      <span class="kicker" data-k="servicesKicker"></span>
+      <h2 data-k="servicesTitre"></h2>
+      <p data-k="servicesIntro"></p>
+    </div>
+    <div class="grid g3" id="services-grid"></div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap about">
+    <img class="about-img" id="aboutImg" alt="" loading="lazy">
+    <div>
+      <div class="why"><span class="n">4</span><div><b>Une vraie personne derrière l'entreprise.</b> Les clients choisissent quelqu'un en qui ils ont confiance. Votre histoire et vos engagements font la différence face à un concurrent sans visage.</div></div>
+      <span class="kicker">Qui sommes-nous</span>
+      <h2 data-k="aproposTitre"></h2>
+      <p class="txt" data-k="apropos"></p>
+      <ul class="checks" id="atouts"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="photos">
+  <div class="wrap">
+    <div class="why"><span class="n">5</span><div><b>Vos photos, la meilleure preuve.</b> Sur votre site, on met <b>vos</b> réalisations, votre équipe, votre boutique. Un client qui voit votre travail appelle plus volontiers.</div></div>
+    <div class="sec-head">
+      <span class="kicker">En images</span>
+      <h2 data-k="galerieTitre"></h2>
+      <p data-k="galerieIntro"></p>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<section class="alt" id="avis">
+  <div class="wrap">
+    <div class="why"><span class="n">6</span><div><b>Vos avis clients bien en vue.</b> On reprend vos meilleurs avis Google. Ici ce sont des exemples ; sur votre site, ce seront les vrais.</div></div>
+    <div class="sec-head" style="margin-bottom:18px">
+      <span class="kicker">Avis clients</span>
+      <h2>Ils nous ont fait confiance</h2>
+    </div>
+    <div class="reviews-top"><span class="big" data-k="note"></span><div><div class="gstars" style="font-size:22px">★★★★★</div><small style="color:var(--muted)"><span data-k="nbAvis"></span> avis Google · avis ci-dessous donnés en exemple</small></div></div>
+    <div class="grid g3" id="reviews"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="why"><span class="n">7</span><div><b>Les questions qu'on vous pose tous les jours.</b> Répondues une fois pour toutes : moins d'appels pour rien, des clients mieux informés. Google met aussi en avant les pages qui répondent aux questions.</div></div>
+    <div class="sec-head">
+      <span class="kicker">Questions fréquentes</span>
+      <h2>Vous vous demandez peut-être…</h2>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap zone-wrap">
+    <div>
+      <div class="why"><span class="n">8</span><div><b>Votre secteur et votre plan.</b> Les communes citées aident Google à vous proposer aux gens qui cherchent près de chez eux.</div></div>
+      <span class="kicker" data-k="zoneKicker"></span>
+      <h2 data-k="zoneTitre"></h2>
+      <p style="color:var(--muted);margin:0 0 20px" data-k="zoneIntro"></p>
+      <div class="zone" id="zone"></div>
+    </div>
+    <iframe class="map" id="map" title="Plan d'accès" loading="lazy" referrerpolicy="no-referrer"></iframe>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="why"><span class="n">9</span><div><b>Les demandes arrivent directement dans votre boîte mail</b>, même quand vous êtes sur un chantier, en rendez-vous ou fermé. Un client qui ne vous joint pas au téléphone ne part plus chez le concurrent.</div></div>
+    <div class="contact">
+      <div>
+        <span class="kicker">Contact</span>
+        <h2 data-k="contactTitre"></h2>
+        <p style="color:var(--muted);margin:0" data-k="contactIntro"></p>
+        <div class="info-list">
+          <div><span class="ico" data-i="tel"></span><div><b>Téléphone</b><br><a data-tel data-k="telAffiche"></a></div></div>
+          <div><span class="ico" data-i="pin"></span><div><b>Adresse</b><br><span data-k="adresse"></span></div></div>
+          <div><span class="ico" data-i="clock"></span><div style="flex:1"><b>Horaires</b><table class="hours" id="hours"></table></div></div>
+        </div>
+      </div>
+      <div class="card" style="padding:26px">
+        <form id="devis" novalidate>
+          <div class="row2">
+            <label>Nom<input name="nom" autocomplete="name"></label>
+            <label>Téléphone<input name="tel" type="tel" autocomplete="tel"></label>
+          </div>
+          <label>Commune<input name="commune" autocomplete="address-level2"></label>
+          <label><span data-k="besoinLabel"></span><select name="besoin" id="besoin"></select></label>
+          <label>Message<textarea name="message" rows="4" data-ph="messagePh"></textarea></label>
+          <button class="btn btn-primary" type="submit" data-k="envoyer"></button>
+          <div class="form-ok" id="formOk">Formulaire de démonstration : sur votre site, la demande arrive directement dans votre boîte mail.</div>
+          <p class="rgpd">Vos informations servent uniquement à répondre à votre demande.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b style="color:#fff" data-k="nom"></b><br><span data-k="adresse"></span></div>
+    <div>
+      <div class="why" style="max-width:520px;margin:0 0 12px"><span class="n">10</span><div><b>Invisible mais essentiel, inclus :</b> site rapide, sécurisé (cadenas HTTPS), lisible par Google, mentions légales et conformité RGPD.</div></div>
+      © <span id="year"></span> · <a href="#" id="mentions">Mentions légales</a> · Site réalisé par <span data-s="nom"></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================= OFFRE (vendeur) ======================= -->
+<section class="offre" id="offre">
+  <div class="wrap">
+    <div class="sec-head" style="max-width:760px">
+      <span class="kicker">Fin de l'exemple · Et pour vous ?</span>
+      <h2>Le même site, à votre nom, en ligne en <span data-s="delai"></span>.</h2>
+      <p>Vos clients vous cherchent sur leur téléphone avant d'appeler. Sans site, ils tombent sur vos concurrents. Je m'occupe de tout : vous n'avez rien à apprendre ni à installer.</p>
+    </div>
+
+    <div class="compare" style="margin:0 0 30px">
+      <div class="cmp"><h4>Une agence web</h4><div class="v">2 000 – 5 000 €</div><p>Souvent plus, avec des délais de plusieurs semaines.</p></div>
+      <div class="cmp"><h4>Le faire soi-même</h4><div class="v">Vos soirées</div><p>Un abonnement chaque mois, et c'est vous qui construisez et mettez à jour le site.</p></div>
+      <div class="cmp me"><h4>Avec moi</h4><div class="v"><span data-s="prix"></span> € une fois</div><p>Je fais tout, vous validez. Pas d'abonnement obligatoire.</p></div>
+    </div>
+
+    <div class="offre-top">
+      <div>
+        <div class="roi">
+          <div>
+            <h3>Combien vous rapporte un nouveau client ?</h3>
+            <p>Changez les chiffres : c'est votre calcul, pas le mien.</p>
+            <div class="row2" style="margin-top:16px">
+              <label>Un client vous rapporte (€)<input type="number" id="roiVal" min="1" inputmode="numeric"></label>
+              <label>Nouveaux clients / mois<input type="number" id="roiNb" min="0" step="1" inputmode="numeric"></label>
+            </div>
+          </div>
+          <div class="res" id="roiRes"></div>
+        </div>
+      </div>
+
+      <div class="pricebox">
+        <div class="amount"><span data-s="prix"></span> € <small>paiement unique</small></div>
+        <p class="sub">Site complet comme cet exemple, à votre nom. Réalisé par <span data-s="nom"></span>.</p>
+        <ul class="incl" id="incl"></ul>
+        <a class="btn btn-primary" data-s-tel style="--accent:#14181d;--accent-dark:#000"><span data-i="tel"></span>Appeler le <span data-s="telAffiche"></span></a>
+        <div class="alt-cta">
+          <a class="btn btn-ghost btn-sm" data-s-sms>Envoyer un SMS</a>
+          <a class="btn btn-ghost btn-sm" data-s-mail>Écrire un e-mail</a>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sm">Comment ça se passe</h3>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><b>15 minutes au téléphone</b><p>Vous me parlez de votre activité, de vos services, de votre secteur.</p></div>
+      <div class="step"><div class="num">2</div><b>Je prépare votre site gratuitement</b><p>Vous recevez la version à votre nom par SMS, avec vos infos et vos photos.</p></div>
+      <div class="step"><div class="num">3</div><b>Il vous plaît : on le met en ligne</b><p>Vous ne payez qu'à ce moment-là. S'il ne vous plaît pas, vous ne devez rien.</p></div>
+    </div>
+
+    <h3 class="sm">Les questions qu'on me pose</h3>
+    <div class="faq" id="faqOffre"></div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox"><img alt=""></div>
+
+<button class="why-toggle" id="whyToggle" type="button"><span class="bulb">?</span><span id="whyTxt">Pourquoi ce site attire des clients</span></button>
+
+<div class="mbar">
+  <a class="btn btn-ghost" data-tel><span data-i="tel"></span>Appeler</a>
+  <a class="btn btn-primary" href="#contact" data-k="ctaCourt"></a>
+</div>
+
+<script>
+/* ============================ VENDEUR ============================ */
+const VENDEUR = {
+  nom: "Jonas Huet",
+  tel: "+33645312853",
+  telAffiche: "06 45 31 28 53",
+  email: "huet.jonas28@gmail.com",
+  prix: "590",
+  delai: "7 jours",
+  inclus: [
+    "Le site complet, adapté aux téléphones",
+    "Vos textes rédigés pour vous",
+    "Vos photos mises en valeur",
+    "Votre nom de domaine .fr (1re année offerte)",
+    "Hébergement sans abonnement",
+    "Formulaire de contact vers votre e-mail",
+    "Bases du référencement local Google",
+    "Mentions légales et RGPD",
+    "1 mois de retouches incluses",
+    "Vous êtes propriétaire de votre site"
+  ],
+  faq: [
+    ["J'ai déjà une page Facebook, ça ne suffit pas ?","Facebook est très bien pour vos habitués. Mais quelqu'un qui cherche « garage Ambérieu » ou « plombier Bourg » sur Google tombe d'abord sur des sites. Le site ne remplace pas Facebook, il vous rend trouvable par ceux qui ne vous connaissent pas encore."],
+    ["Je n'y connais rien en informatique.","Vous n'avez rien à faire. Je rédige, je mets en ligne, je m'occupe du nom de domaine. Vous validez simplement le résultat sur votre téléphone."],
+    ["Et si je veux changer quelque chose plus tard ?","Le premier mois, les retouches sont incluses. Ensuite, un SMS suffit : horaires, tarifs, photos, je fais la modification rapidement pour un petit prix fixé à l'avance."],
+    ["Il y a des frais cachés ?","Non. L'hébergement ne coûte rien. Le seul coût après la première année est le renouvellement du nom de domaine, environ 15 € par an, payé directement par vous."],
+    ["Le site m'appartient vraiment ?","Oui. Le nom de domaine est à votre nom et vous gardez tous les fichiers. Vous n'êtes lié à personne."]
+  ]
+};
+
+/* ============================ CONTENU ============================
+   « neutre » = version de départ. Chaque métier remplace ce qu'il précise.
+   Horaires : lundi → dimanche, "08:00-12:00,14:00-18:00" ou "" (fermé).
+   Site livré à un client : MODE_LIVRAISON = "garage" (par ex.).
+   ================================================================ */
+const MODE_LIVRAISON = null;
+const P = id => "https://cdn.stocksnap.io/img-thumbs/960w/" + id + ".jpg";
+
+const NEUTRE = {
+  label: "Votre entreprise",
+  couleur: "#0f766e", couleurFoncee: "#0b5a54", couleurDouce: "#e6f4f2",
+  nom: "Votre Entreprise", initiales: "VE",
+  tel: "+33400000000", telAffiche: "04 00 00 00 00",
+  adresse: "Votre adresse · Ain (01)", coords: [46.2052, 5.2255],
+  accroche: "Votre métier · Votre ville",
+  titre: "Ici, en une phrase : ce que vous faites et pour qui.",
+  sousTitre: "Juste en dessous, ce qui vous rend différent : votre expérience, votre savoir-faire, votre façon de travailler.",
+  cta: "Demander un devis", ctaCourt: "Devis",
+  trust: ["Réponse rapide","Entreprise locale","Devis gratuit"],
+  note: "4,9", nbAvis: "86",
+  exempleRecherche: "votre métier + votre ville",
+  navServices: "Services",
+  servicesKicker: "Ce que nous faisons", servicesTitre: "Vos services",
+  servicesIntro: "Vos prestations présentées simplement, comme vos clients les cherchent.",
+  services: [
+    ["star","Votre prestation principale","Deux lignes pour l'expliquer clairement à quelqu'un qui ne vous connaît pas.","À partir de …"],
+    ["tool","Deuxième prestation","Ce que vous faites, pour qui, et ce que le client y gagne.",""],
+    ["home","Troisième prestation","Chaque service a sa place : c'est aussi ce qui aide à remonter dans Google.",""],
+    ["euro","Vos tarifs","Des prix indicatifs ou « sur devis » : c'est vous qui choisissez.",""],
+    ["shield","Vos garanties","Assurances, labels, certifications : tout ce qui rassure.",""],
+    ["clock","Horaires et accès","Toujours à jour, sans que vos clients aient besoin d'appeler.",""]
+  ],
+  aproposTitre: "Votre histoire en quelques lignes",
+  apropos: "Depuis quand vous exercez, pourquoi vous faites ce métier, ce qui compte pour vous. C'est ce qui donne envie de vous choisir plutôt qu'un autre.",
+  atouts: [["Votre premier atout","La qualité que vos clients citent le plus souvent."],["Votre engagement","Délais, propreté, conseil, suivi…"],["Votre ancrage local","Une entreprise d'ici, qui connaît son secteur."]],
+  galerieTitre: "Vos photos", galerieIntro: "Vos réalisations, votre équipe, vos locaux.",
+  photos: ["SORUL2ZADR","3QX7WQCK52","WP40DVYDWS","V5ZVS5WP3K","4EV2SRG4II","C8C6M7BSEX"],
+  legendes: ["Votre boutique","Votre équipe","Vos locaux","Votre savoir-faire","Votre accueil"],
+  avis: [["Un client","Ici s'affiche un de vos avis Google, avec la note et le prénom du client."],["Une cliente","Vous choisissez les avis mis en avant : ceux qui parlent le mieux de votre travail."],["Un client","Les avis rassurent : ils sont lus avant le premier appel."]],
+  faq: [["Une question que vos clients posent souvent ?","Votre réponse, claire et courte."],["Faites-vous les devis gratuitement ?","Précisez ici vos conditions."],["Quels moyens de paiement acceptez-vous ?","Carte, espèces, chèque, virement…"],["Intervenez-vous dans ma commune ?","La liste de votre secteur est juste en dessous."]],
+  zoneKicker: "Secteur", zoneTitre: "Où nous trouver",
+  zoneIntro: "Les communes où vous travaillez, et votre plan d'accès.",
+  zone: ["Bourg-en-Bresse","Viriat","Péronnas","Ceyzériat","Attignat","Montrevel-en-Bresse"],
+  contactTitre: "Parlons de votre demande", contactIntro: "Une question, un devis ? Réponse sous 24 h.",
+  horaires: ["09:00-12:00,14:00-18:00","09:00-12:00,14:00-18:00","09:00-12:00,14:00-18:00","09:00-12:00,14:00-18:00","09:00-12:00,14:00-18:00","09:00-12:00",""],
+  besoinLabel: "Votre demande", besoins: ["Demande de devis","Renseignement","Autre"],
+  messagePh: "Décrivez votre demande en quelques mots", envoyer: "Envoyer ma demande",
+  roiVal: 150, roiNb: 2
+};
+
+const METIERS = {
+  neutre: {},
+  artisan: {
+    label: "Artisan du bâtiment",
+    couleur: "#1d5fd1", couleurFoncee: "#174aa3", couleurDouce: "#e8effc",
+    nom: "Exemple Rénovation", initiales: "ER", adresse: "Bourg-en-Bresse · Ain (01)", coords: [46.2052, 5.2255],
+    accroche: "Artisan rénovation · Bourg-en-Bresse et alentours",
+    titre: "Rénovation intérieure : un seul artisan pour tout votre chantier.",
+    sousTitre: "Électricité, plomberie, plâtrerie-peinture, sols. Devis détaillé sous 48 h, délais tenus, chantier rendu propre.",
+    cta: "Demander un devis gratuit", ctaCourt: "Devis gratuit",
+    trust: ["Devis gratuit sous 48 h","Garantie décennale","Particuliers & pros"],
+    note: "4,9", nbAvis: "112", exempleRecherche: "rénovation salle de bain Bourg-en-Bresse",
+    servicesKicker: "Nos métiers", servicesTitre: "Ce que nous faisons pour vous",
+    servicesIntro: "Du petit dépannage à la rénovation complète, neuf comme ancien.",
+    services: [
+      ["bolt","Électricité","Mise aux normes, tableau électrique, éclairage, prises.","Devis gratuit"],
+      ["drop","Plomberie & salle de bains","Douche à l'italienne, remplacement de sanitaires, chauffe-eau.","Devis gratuit"],
+      ["brush","Plâtrerie & peinture","Cloisons, faux plafonds, isolation, peinture intérieure.","Devis gratuit"],
+      ["grid","Carrelage & sols","Carrelage, parquet, sol stratifié, faïence.","Devis gratuit"],
+      ["home","Rénovation complète","Appartement ou maison : on coordonne tout le chantier.","Sur devis"],
+      ["tool","Petits travaux & dépannage","Intervention rapide pour les urgences du quotidien.","Sur devis"]
+    ],
+    aproposTitre: "Un artisan local, un seul interlocuteur",
+    apropos: "Installés près de Bourg-en-Bresse depuis 15 ans, nous rénovons maisons et appartements de la Bresse et du Revermont. Vous parlez toujours à la personne qui fait les travaux.",
+    atouts: [["Devis clair, prix tenu","Le prix est fixé avant de commencer, sans surprise."],["Chantier propre","On protège, on nettoie, on laisse les lieux impeccables."],["Assurance décennale","Vos travaux sont garantis 10 ans."]],
+    galerieTitre: "Nos derniers chantiers", galerieIntro: "Quelques réalisations récentes chez nos clients.",
+    photos: ["QJ55PI34SY","3A5FXM89OG","BZ4FJO6KZE","6EAB6C3900","6B70C91911","94708213BA"],
+    legendes: ["Mise aux normes électrique","Plans et métré","Chantier de rénovation","Pose de cloisons","Finitions"],
+    avis: [["Marie L.","Salle de bains refaite en deux semaines, travail soigné et prix annoncé respecté."],["Thomas R.","Très bon suivi du chantier, toujours joignable. Je recommande."],["Claire D.","Mise aux normes électrique rapide, chantier laissé propre."]],
+    faq: [["Le devis est-il gratuit ?","Oui, nous nous déplaçons gratuitement et vous recevez un devis détaillé sous 48 h."],["Êtes-vous assurés ?","Oui, nous avons une assurance décennale et une responsabilité civile professionnelle."],["Puis-je bénéficier d'aides pour mes travaux ?","Selon les travaux, des aides peuvent exister. Nous vous indiquons lesquelles vérifier."],["Dans quel délai pouvez-vous intervenir ?","Pour un dépannage, souvent sous 48 h. Pour un chantier, nous fixons la date ensemble à la signature du devis."]],
+    zoneKicker: "Zone d'intervention", zoneTitre: "Nous intervenons près de chez vous",
+    zoneIntro: "Dans un rayon d'environ 30 km autour de Bourg-en-Bresse.",
+    zone: ["Bourg-en-Bresse","Viriat","Péronnas","Saint-Denis-lès-Bourg","Attignat","Montrevel-en-Bresse","Ceyzériat","Polliat","Vonnas","Saint-Étienne-du-Bois"],
+    contactTitre: "Parlez-nous de votre projet",
+    horaires: ["08:00-12:00,13:30-18:00","08:00-12:00,13:30-18:00","08:00-12:00,13:30-18:00","08:00-12:00,13:30-18:00","08:00-12:00,13:30-17:00","",""],
+    besoinLabel: "Type de travaux", besoins: ["Électricité","Plomberie / salle de bains","Plâtrerie / peinture","Sols","Rénovation complète","Dépannage"],
+    messagePh: "Décrivez vos travaux : pièce, surface, délai souhaité…",
+    roiVal: 2500, roiNb: 1
+  },
+  garage: {
+    label: "Garage",
+    couleur: "#c2410c", couleurFoncee: "#9a3412", couleurDouce: "#fdeee6",
+    nom: "Garage Exemple", initiales: "GE", adresse: "Ambérieu-en-Bugey · Ain (01)", coords: [45.9575, 5.3586],
+    accroche: "Garage toutes marques · Ambérieu-en-Bugey",
+    titre: "Entretien, réparation et pneus, toutes marques.",
+    sousTitre: "Un garage indépendant qui annonce le prix avant de commencer et vous rend la voiture à l'heure.",
+    cta: "Prendre rendez-vous", ctaCourt: "Rendez-vous",
+    trust: ["Devis avant travaux","Véhicule de prêt","Toutes marques"],
+    note: "4,8", nbAvis: "143", exempleRecherche: "garage pas cher Ambérieu",
+    navServices: "Prestations", servicesKicker: "Nos prestations", servicesTitre: "Tout l'entretien de votre véhicule",
+    servicesIntro: "Voitures et utilitaires, toutes marques, sans perdre la garantie constructeur.",
+    services: [
+      ["tool","Révision & vidange","Entretien selon le carnet constructeur.","À partir de 89 €"],
+      ["car","Freinage","Plaquettes, disques, liquide de frein.","À partir de 120 €"],
+      ["circle","Pneus","Montage, équilibrage, géométrie, pneus hiver.","Sur devis"],
+      ["bolt","Diagnostic électronique","Un voyant allumé ? On trouve la panne.","49 €"],
+      ["snow","Climatisation","Recharge et contrôle du circuit.","À partir de 69 €"],
+      ["shield","Pré-contrôle technique","On prépare votre véhicule avant le passage.","Offert avec une révision"]
+    ],
+    aproposTitre: "Votre garage de confiance depuis 20 ans",
+    apropos: "Garage indépendant à Ambérieu-en-Bugey, nous entretenons les véhicules de nos clients comme si c'étaient les nôtres. On explique, on chiffre, et on ne touche à rien sans votre accord.",
+    atouts: [["Prix annoncé à l'avance","Aucun travail sans votre accord."],["Véhicule de prêt","Pour ne pas vous laisser à pied."],["Conseils honnêtes","On répare ce qui doit l'être, pas plus."]],
+    galerieTitre: "L'atelier", galerieIntro: "Notre équipe et nos équipements.",
+    photos: ["T7T37KWY8G","739D74EEB8","4RHOB6RC3S","MUVDMYQQXF","LCLKTHHCMX","A0737DFF83"],
+    legendes: ["Moteur","Outillage","Pneumatiques","Pièces","Atelier"],
+    avis: [["Julien P.","Prix annoncé respecté, voiture prête le soir même."],["Sandrine M.","Garage honnête : ils m'ont évité une réparation inutile."],["Karim B.","Accueil sympa et travail rapide pour mes pneus hiver."]],
+    faq: [["Faut-il prendre rendez-vous ?","C'est préférable pour une révision. Pour un dépannage rapide, appelez-nous."],["La révision chez vous conserve-t-elle la garantie constructeur ?","Oui, nous suivons le carnet d'entretien du constructeur avec des pièces de qualité équivalente."],["Proposez-vous un véhicule de prêt ?","Oui, sur réservation, pour les interventions de plus d'une journée."],["Quels moyens de paiement acceptez-vous ?","Carte bancaire, espèces et chèque. Paiement en plusieurs fois possible selon le montant."]],
+    zoneKicker: "Accès", zoneTitre: "Facile d'accès depuis tout le Bugey",
+    zoneIntro: "À deux minutes de la gare d'Ambérieu, parking devant le garage.",
+    zone: ["Ambérieu-en-Bugey","Saint-Denis-en-Bugey","Château-Gaillard","Lagnieu","Saint-Rambert-en-Bugey","Meximieux","Pont-d'Ain"],
+    contactTitre: "Prenez rendez-vous",
+    horaires: ["08:00-12:00,14:00-18:30","08:00-12:00,14:00-18:30","08:00-12:00,14:00-18:30","08:00-12:00,14:00-18:30","08:00-12:00,14:00-18:00","08:00-12:00",""],
+    besoinLabel: "Prestation", besoins: ["Révision / vidange","Freinage","Pneus","Diagnostic","Climatisation","Autre"],
+    messagePh: "Marque, modèle et kilométrage du véhicule, et ce qui ne va pas.", envoyer: "Demander un rendez-vous",
+    roiVal: 300, roiNb: 2
+  },
+  beaute: {
+    label: "Coiffure & beauté",
+    couleur: "#be185d", couleurFoncee: "#9d174d", couleurDouce: "#fcebf3",
+    nom: "Salon Exemple", initiales: "SE", adresse: "Oyonnax · Ain (01)", coords: [46.2566, 5.6556],
+    accroche: "Coiffure & esthétique · Oyonnax centre",
+    titre: "Votre salon de coiffure et de beauté, en plein centre d'Oyonnax.",
+    sousTitre: "Coupes, couleurs, soins et ongles, avec des conseils personnalisés et des produits professionnels.",
+    cta: "Prendre rendez-vous", ctaCourt: "Rendez-vous",
+    trust: ["Femme · Homme · Enfant","Produits professionnels","Avec ou sans rendez-vous"],
+    note: "4,9", nbAvis: "208", exempleRecherche: "coiffeur balayage Oyonnax",
+    navServices: "Tarifs", servicesKicker: "Prestations & tarifs", servicesTitre: "Nos prestations",
+    servicesIntro: "Tarifs indicatifs, détaillés au salon selon la longueur des cheveux.",
+    services: [
+      ["scissors","Coupe femme","Shampoing, coupe, brushing.","À partir de 35 €"],
+      ["scissors","Coupe homme","Coupe et finition, barbe sur demande.","À partir de 20 €"],
+      ["star","Couleur & balayage","Balayage, ombré, couleur végétale.","À partir de 55 €"],
+      ["flower","Soins du visage","Nettoyage, hydratation, éclat.","À partir de 45 €"],
+      ["hand","Ongles","Manucure, semi-permanent, pose.","À partir de 25 €"],
+      ["heart","Mariage & événements","Chignon et mise en beauté le jour J.","Sur devis"]
+    ],
+    aproposTitre: "Un salon où l'on prend le temps",
+    apropos: "Depuis 10 ans au cœur d'Oyonnax, nous prenons le temps de comprendre vos envies avant de commencer. Un moment de détente, un résultat qui vous ressemble.",
+    atouts: [["Diagnostic offert","On parle de vos envies avant de commencer."],["Produits de qualité","Des marques professionnelles respectueuses du cheveu."],["Rendez-vous en ligne","Réservez quand vous voulez, même le dimanche soir."]],
+    galerieTitre: "Nos réalisations", galerieIntro: "Coupes, couleurs et soins récents.",
+    photos: ["S7UEWWIRTD","KXO6LZKXJN","XX356Q6EI4","OKG3OV0B05"],
+    legendes: ["Couleur","Ongles","Soin"],
+    avis: [["Léa G.","Super balayage, exactement ce que je voulais."],["Nadia S.","Très bons conseils et salon très agréable."],["Camille F.","Coiffure de mariage parfaite, merci !"]],
+    faq: [["Prenez-vous sans rendez-vous ?","Oui, selon les disponibilités. Pour être sûre d'avoir une place, réservez en ligne ou par téléphone."],["Combien de temps dure un balayage ?","Comptez environ 2 h à 2 h 30 selon la longueur."],["Vendez-vous les produits utilisés ?","Oui, toute notre gamme professionnelle est disponible au salon."],["Faites-vous des cartes cadeaux ?","Oui, du montant de votre choix."]],
+    zoneKicker: "Accès", zoneTitre: "En plein centre-ville",
+    zoneIntro: "Stationnement gratuit à proximité.",
+    zone: ["Oyonnax","Bellignat","Arbent","Groissiat","Montréal-la-Cluse","Martignat"],
+    contactTitre: "Réservez votre moment",
+    horaires: ["","09:00-19:00","09:00-19:00","09:00-19:00","09:00-19:00","08:30-17:00",""],
+    besoinLabel: "Prestation souhaitée", besoins: ["Coupe","Couleur / balayage","Soin du visage","Ongles","Mariage"],
+    messagePh: "Jour et heure qui vous arrangent.", envoyer: "Demander un rendez-vous",
+    roiVal: 400, roiNb: 2
+  },
+  commerce: {
+    label: "Commerce de proximité",
+    couleur: "#9a5b13", couleurFoncee: "#7a470d", couleurDouce: "#f8efe2",
+    nom: "Maison Exemple", initiales: "ME", adresse: "Belley · Ain (01)", coords: [45.7594, 5.6881],
+    accroche: "Boulangerie-pâtisserie artisanale · Belley",
+    titre: "Pain au levain, viennoiseries et pâtisseries faits maison chaque matin.",
+    sousTitre: "Farines de la région, cuisson sur place dès 6 h. Commandez vos gâteaux et votre pain à l'avance.",
+    cta: "Commander", ctaCourt: "Commander",
+    trust: ["Fait maison","Farines locales","Commande à retirer"],
+    note: "4,9", nbAvis: "174", exempleRecherche: "boulangerie Belley ouverte dimanche",
+    navServices: "Produits", servicesKicker: "Nos produits", servicesTitre: "Tout est fait ici",
+    servicesIntro: "Au comptoir ou sur commande, pour tous les jours et les grandes occasions.",
+    services: [
+      ["wheat","Pains","Levain, campagne, céréales, baguette tradition.","Dès 1,20 €"],
+      ["star","Viennoiseries","Croissants pur beurre, pains au chocolat, brioches.","Dès 1,10 €"],
+      ["heart","Pâtisseries","Tartes de saison, éclairs, entremets.","Dès 3,50 €"],
+      ["cake","Gâteaux sur commande","Anniversaires, mariages, baptêmes.","Sur commande"],
+      ["bag","Snacking du midi","Sandwichs, quiches, formules.","Formule 8,50 €"],
+      ["clock","Commande & retrait","Commandez la veille, c'est prêt à votre arrivée.","Sans attente"]
+    ],
+    aproposTitre: "Artisans boulangers depuis trois générations",
+    apropos: "Notre famille pétrit le pain à Belley depuis 1978. Nous travaillons des farines de la région et un levain naturel entretenu chaque jour.",
+    atouts: [["Tout est fait sur place","Du pétrin au four, rien n'est surgelé."],["Farines locales","Moulins de l'Ain et de Savoie."],["Commandes faciles","Par téléphone ou par le formulaire."]],
+    galerieTitre: "La boutique", galerieIntro: "Le fournil, le comptoir et nos créations.",
+    photos: ["L4B2YC09F2","NKU48AAAWF","9J9OUZYDZ3","GI73BADLXF","FAOI1VDJBI","Q1D4QEQM3Z"],
+    legendes: ["Le comptoir","Pains spéciaux","Viennoiseries","Les gourmandises","Le goûter"],
+    avis: [["Pierre V.","Le meilleur pain de Belley, et un accueil toujours souriant."],["Anne-Sophie R.","Gâteau d'anniversaire magnifique et délicieux."],["Michel T.","Commande prête à l'heure, rien à redire."]],
+    faq: [["Êtes-vous ouverts le dimanche ?","Oui, le dimanche matin de 6 h 30 à 12 h 30."],["Comment commander un gâteau ?","Par téléphone ou via le formulaire, au moins 48 h à l'avance."],["Avez-vous des produits sans gluten ?","Nous proposons quelques produits adaptés : demandez-nous la liste du jour."],["Acceptez-vous la carte bancaire ?","Oui, dès 1 €, ainsi que le sans contact."]],
+    zoneKicker: "Accès", zoneTitre: "En plein cœur de Belley",
+    zoneIntro: "Places de stationnement minute devant la boutique.",
+    zone: ["Belley","Brens","Virignin","Chazey-Bons","Magnieu","Cressin-Rochefort"],
+    contactTitre: "Passez commande",
+    horaires: ["","06:30-13:00,15:30-19:00","06:30-13:00,15:30-19:00","06:30-13:00,15:30-19:00","06:30-13:00,15:30-19:00","06:30-13:00,15:00-19:00","06:30-12:30"],
+    besoinLabel: "Votre commande", besoins: ["Pain / viennoiseries","Gâteau sur commande","Buffet / événement","Renseignement"],
+    messagePh: "Ce que vous souhaitez, pour quel jour et combien de personnes.", envoyer: "Envoyer ma commande",
+    roiVal: 350, roiNb: 2
+  },
+  restaurant: {
+    label: "Restaurant",
+    couleur: "#a0410d", couleurFoncee: "#7f330a", couleurDouce: "#fbeee4",
+    nom: "Restaurant Exemple", initiales: "RE", adresse: "Pérouges · Ain (01)", coords: [45.9040, 5.1795],
+    accroche: "Cuisine de saison · Pérouges",
+    titre: "Une cuisine de saison avec les produits de la Dombes et de la Bresse.",
+    sousTitre: "Menu du jour le midi, carte le soir, terrasse aux beaux jours. Tout est fait maison.",
+    cta: "Réserver une table", ctaCourt: "Réserver",
+    trust: ["Fait maison","Produits locaux","Terrasse"],
+    note: "4,7", nbAvis: "391", exempleRecherche: "restaurant Pérouges terrasse",
+    navServices: "La carte", servicesKicker: "À la carte", servicesTitre: "Notre cuisine",
+    servicesIntro: "La carte change avec les saisons et les arrivages.",
+    services: [
+      ["plate","Menu du midi","Entrée, plat, dessert, du mardi au vendredi.","16 €"],
+      ["star","Volaille de Bresse","Notre plat signature, crème et morilles.","28 €"],
+      ["fish","Grenouilles de la Dombes","En persillade, en saison.","24 €"],
+      ["heart","Desserts maison","Galette pérougienne, tarte du moment.","8 €"],
+      ["bag","Vente à emporter","Commandez par téléphone, récupérez sur place.","Midi et soir"],
+      ["users","Groupes & événements","Repas d'entreprise, anniversaires, jusqu'à 40 personnes.","Sur devis"]
+    ],
+    aproposTitre: "Une table familiale au cœur de la cité",
+    apropos: "Dans une maison du XVe siècle de la cité médiévale, nous cuisinons chaque jour les produits des éleveurs et maraîchers de l'Ain.",
+    atouts: [["Fait maison","Du pain aux desserts."],["Producteurs locaux","Volailles, fromages, légumes de la région."],["Réservation simple","En ligne ou par téléphone."]],
+    galerieTitre: "En images", galerieIntro: "La salle, la cuisine et quelques assiettes.",
+    photos: ["THXU08ODDE","KI4IDLRWIJ","WYGI6J1B0S","AV3IUF5EDB","47E77904CB","0HCMIT272C"],
+    legendes: ["Le comptoir","Plat du jour","Poisson de saison","Le service","En cuisine"],
+    avis: [["Hélène B.","Cuisine généreuse et service souriant."],["Marc D.","Excellent menu du midi, rapport qualité-prix au top."],["Sophie A.","Cadre magnifique, on reviendra."]],
+    faq: [["Faut-il réserver ?","Conseillé le week-end et en été. En semaine le midi, vous trouverez souvent une table."],["Avez-vous des plats végétariens ?","Oui, toujours au moins un plat et une entrée végétariens."],["Accueillez-vous les groupes ?","Oui, jusqu'à 40 personnes, avec un menu adapté."],["Les chiens sont-ils acceptés ?","Oui, en terrasse."]],
+    zoneKicker: "Accès", zoneTitre: "Dans la cité médiévale",
+    zoneIntro: "Parking à l'entrée de la cité, à 3 minutes à pied.",
+    zone: ["Pérouges","Meximieux","Saint-Maurice-de-Gourdans","Montluel","Ambérieu-en-Bugey","Lyon (35 min)"],
+    contactTitre: "Réservez votre table", contactIntro: "Par téléphone ou en laissant un message : nous confirmons rapidement.",
+    horaires: ["","12:00-14:00,19:00-21:30","12:00-14:00,19:00-21:30","12:00-14:00,19:00-21:30","12:00-14:00,19:00-22:00","12:00-14:00,19:00-22:00","12:00-14:30"],
+    besoinLabel: "Votre demande", besoins: ["Réservation","Groupe / événement","Vente à emporter"],
+    messagePh: "Date, heure et nombre de personnes.", envoyer: "Envoyer ma réservation",
+    roiVal: 70, roiNb: 15
+  },
+  gite: {
+    label: "Gîte & chambres d'hôtes",
+    couleur: "#2f6b3a", couleurFoncee: "#24542d", couleurDouce: "#e9f3eb",
+    nom: "Gîte Exemple", initiales: "GE", adresse: "Haut Valromey · Ain (01)", coords: [45.9600, 5.7000],
+    accroche: "Gîte de charme · Valromey, Bugey",
+    titre: "Un gîte au calme, entre forêts et montagnes du Bugey.",
+    sousTitre: "Jusqu'à 6 personnes, jardin, vue dégagée, randonnées au départ de la maison. Réservation en direct, sans frais de plateforme.",
+    cta: "Voir les disponibilités", ctaCourt: "Disponibilités",
+    trust: ["Réservation en direct","Sans frais de plateforme","Animaux bienvenus"],
+    note: "4,9", nbAvis: "64", exempleRecherche: "gîte Valromey 6 personnes",
+    navServices: "Le gîte", servicesKicker: "Le gîte", servicesTitre: "Tout pour un séjour reposant",
+    servicesIntro: "Une maison entière rien que pour vous.",
+    services: [
+      ["bed","3 chambres","Literie de qualité, linge de lit et de toilette fournis.","6 personnes"],
+      ["home","Cuisine équipée","Four, lave-vaisselle, cafetière, tout le nécessaire.",""],
+      ["flower","Grand jardin","Salon de jardin, barbecue, vue sur les montagnes.",""],
+      ["mountain","Activités","Randonnée, VTT, ski de fond, lacs à proximité.",""],
+      ["wifi","Wi-Fi fibre","Idéal aussi pour télétravailler au calme.",""],
+      ["euro","Tarifs","À partir de 95 € la nuit, 590 € la semaine.","Réservation en direct"]
+    ],
+    aproposTitre: "Nous vous accueillons personnellement",
+    apropos: "Nous avons rénové cette ancienne ferme pour partager le calme du Valromey. Nous vous remettons les clés et nos meilleures adresses du coin.",
+    atouts: [["Meilleur prix en direct","Pas de frais de plateforme."],["Accueil personnalisé","Clés en main propre, conseils sur place."],["Arrivée flexible","On s'adapte à vos horaires."]],
+    galerieTitre: "La maison et les environs", galerieIntro: "Le gîte, les chambres et ce qui vous attend autour.",
+    photos: ["HJAYJG4OLY","1ZNKBBEU4O","DMIAKMULQH","2OSEYRAMQD","6M49G7YDLK","9EMKZ5SQ2K"],
+    legendes: ["Au bord du lac","La maison voisine","Une chambre","Coin lecture","Les montagnes"],
+    avis: [["Famille R.","Maison très propre et calme absolu, idéal pour se ressourcer."],["Julie et Tom","Accueil adorable et vue superbe."],["Laurent P.","Parfait pour nos randonnées, on reviendra."]],
+    faq: [["Les animaux sont-ils acceptés ?","Oui, avec plaisir, signalez-le simplement à la réservation."],["Le linge est-il fourni ?","Oui, linge de lit et de toilette inclus."],["Quelle est la durée minimum de séjour ?","2 nuits, 7 nuits en juillet et août."],["Comment réserver ?","Envoyez vos dates via le formulaire : nous vous répondons sous 24 h avec un contrat."]],
+    zoneKicker: "Autour du gîte", zoneTitre: "Au cœur du Valromey",
+    zoneIntro: "À environ 1 h 30 de Lyon et de Genève.",
+    zone: ["Grand Colombier","Lac de Nantua","Lac du Bourget","Hauteville-Lompnes","Belley","Genève"],
+    contactTitre: "Demandez vos dates", contactIntro: "Indiquez vos dates : nous vous répondons sous 24 h.",
+    horaires: ["16:00-20:00","16:00-20:00","16:00-20:00","16:00-20:00","16:00-20:00","16:00-20:00","16:00-20:00"],
+    horairesLabel: "Arrivées",
+    besoinLabel: "Votre séjour", besoins: ["Week-end","Semaine","Autre durée"],
+    messagePh: "Dates d'arrivée et de départ, nombre de personnes.", envoyer: "Demander les disponibilités",
+    roiVal: 600, roiNb: 2
+  }
+};
+
+/* ============================ ICÔNES ============================ */
+const ICONS = {
+  tel:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+  pin:'<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  check:'<path d="M20 6 9 17l-5-5"/>',
+  star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
+  tool:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8z"/>',
+  home:'<path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/>',
+  euro:'<path d="M18 7a7 7 0 1 0 0 10M4 10h10M4 14h10"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  drop:'<path d="M12 2.7s6 6.6 6 11.3a6 6 0 0 1-12 0c0-4.7 6-11.3 6-11.3z"/>',
+  brush:'<path d="M9.06 11.9 18.6 2.4a2 2 0 0 1 2.9 2.9L12 14.8"/><path d="M7 14c-1.7 0-3 1.3-3 3 0 1.3-1 2-2 2 1 1.5 3 2 4.5 2a4.5 4.5 0 0 0 4.5-4.5c0-1.4-1.3-2.5-3-2.5z"/>',
+  grid:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
+  car:'<path d="M5 17h14M3 13l2-6h14l2 6v5h-3M3 13v5h3M3 13h18"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/>',
+  circle:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>',
+  snow:'<path d="M12 2v20M4.9 4.9l14.2 14.2M2 12h20M4.9 19.1 19.1 4.9"/>',
+  scissors:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/>',
+  flower:'<circle cx="12" cy="9" r="3"/><path d="M12 12v10M12 2a3 3 0 0 1 0 4M9 9a3 3 0 0 1-4 0M15 9a3 3 0 0 0 4 0M9 18c-2 0-4-1-4-3 2 0 4 1 4 3zM15 16c2 0 4-1 4-3-2 0-4 1-4 3z"/>',
+  hand:'<path d="M18 11V6a2 2 0 0 0-4 0v5M14 10V4a2 2 0 0 0-4 0v6M10 10.5V6a2 2 0 0 0-4 0v8a8 8 0 0 0 16 0v-2a2 2 0 0 0-4 0"/>',
+  heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>',
+  wheat:'<path d="M12 22V8M12 8c-2-2-2-4 0-6 2 2 2 4 0 6zM12 13c-3 0-5-2-5-4 3 0 5 2 5 4zM12 13c3 0 5-2 5-4-3 0-5 2-5 4zM12 18c-3 0-5-2-5-4 3 0 5 2 5 4zM12 18c3 0 5-2 5-4-3 0-5 2-5 4z"/>',
+  cake:'<path d="M4 21h16v-8H4zM4 16c2 1 4 1 6 0s4-1 6 0 3 1 4 0M12 13V9M12 6a1.5 1.5 0 0 1-1-2.5L12 2l1 1.5A1.5 1.5 0 0 1 12 6z"/>',
+  bag:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/>',
+  plate:'<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/>',
+  fish:'<path d="M6.5 12c3-5 11-5 14 0-3 5-11 5-14 0zM6.5 12 2 8v8z"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+  bed:'<path d="M2 20V8M2 16h20v4M22 16v-4a3 3 0 0 0-3-3h-8v7"/><circle cx="7" cy="12" r="2"/>',
+  mountain:'<path d="m8 3 4 8 5-5 5 15H2z"/>',
+  wifi:'<path d="M5 12.6a10 10 0 0 1 14 0M8.5 16.1a5 5 0 0 1 7 0M2 8.8a15 15 0 0 1 20 0"/><circle cx="12" cy="20" r="1"/>'
+};
+const svg = (n,s=22,w=2) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||ICONS.star}</svg>`;
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $ = id => document.getElementById(id);
+const JOURS = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
+const fmtH = h => h.replace(/^0/,'').replace(':00',' h').replace(/:(\d\d)/,' h $1');
+const fmtPlage = s => s ? s.split(',').map(p=>p.split('-').map(fmtH).join(' – ')).join(' · ') : 'Fermé';
+
+let current = 'neutre';
+
+function openStatus(C){
+  const now=new Date(), d=(now.getDay()+6)%7, mins=now.getHours()*60+now.getMinutes();
+  const toM=t=>{const [h,m]=t.split(':').map(Number);return h*60+m;};
+  const plages=(C.horaires[d]||'').split(',').filter(Boolean).map(p=>p.split('-').map(toM));
+  const ouverte=plages.find(([a,b])=>mins>=a&&mins<b);
+  if(ouverte) return {open:true, txt:`Ouvert maintenant <small>· jusqu'à ${fmtH(C.horaires[d].split(',').find(p=>toM(p.split('-')[1])===ouverte[1]).split('-')[1])}</small>`};
+  const next=plages.find(([a])=>a>mins);
+  if(next) return {open:false, txt:`Fermé <small>· ouvre à ${fmtH(String(Math.floor(next[0]/60)).padStart(2,'0')+':'+String(next[0]%60).padStart(2,'0'))}</small>`};
+  for(let i=1;i<=7;i++){const j=(d+i)%7; if(C.horaires[j]) return {open:false, txt:`Fermé <small>· ouvre ${i===1?'demain':JOURS[j].toLowerCase()} à ${fmtH(C.horaires[j].split('-')[0])}</small>`};}
+  return {open:false, txt:'Fermé'};
+}
+
+function roi(C){
+  const v=Math.max(0,+$('roiVal').value||0), n=Math.max(0,+$('roiNb').value||0), prix=+VENDEUR.prix;
+  const an=v*n*12;
+  if(!v||!n){ $('roiRes').innerHTML='Indiquez vos chiffres pour voir le résultat.'; return; }
+  const mois=prix/(v*n);
+  const delai = mois<=1 ? 'dès le <b>premier mois</b>' : `en <b>${Math.ceil(mois)} mois</b>`;
+  $('roiRes').innerHTML=`Avec ${n} nouveau${n>1?'x':''} client${n>1?'s':''} par mois à ${v.toLocaleString('fr-FR')} €, le site est remboursé ${delai}.<br>Sur un an : <b>${an.toLocaleString('fr-FR')} €</b> de chiffre d'affaires en plus, pour ${prix} € payés une seule fois.<br><small style="color:#8b96a2">Exemple indicatif : le résultat dépend de votre activité.</small>`;
+}
+
+function render(key){
+  current = METIERS[key] ? key : 'neutre';
+  const C = {...NEUTRE, ...METIERS[current]};
+  const r=document.documentElement.style;
+  r.setProperty('--accent',C.couleur); r.setProperty('--accent-dark',C.couleurFoncee); r.setProperty('--accent-soft',C.couleurDouce);
+  document.title = MODE_LIVRAISON ? C.nom : "Exemple de site : "+C.label;
+  document.querySelectorAll('[data-k]').forEach(el=>{ if(C[el.dataset.k]!=null) el.textContent=C[el.dataset.k]; });
+  document.querySelectorAll('[data-ph]').forEach(el=>el.placeholder=C[el.dataset.ph]||'');
+  document.querySelectorAll('[data-tel]').forEach(el=>el.href='tel:'+C.tel);
+  $('heroBg').style.backgroundImage=`url("${P(C.photos[0])}")`;
+  $('aboutImg').src=P(C.photos[1]); $('aboutImg').alt=C.aproposTitre;
+  $('trust').innerHTML=C.trust.map(t=>`<span>${svg('check',18,2.6)}${esc(t)}</span>`).join('');
+  const st=openStatus(C); $('status').className='status '+(st.open?'open':'closed'); $('statusTxt').innerHTML=st.txt;
+  $('services-grid').innerHTML=C.services.map(([i,t,d,p])=>`<div class="card"><div class="ico">${svg(i)}</div><h3>${esc(t)}</h3><p>${esc(d)}</p>${p?`<span class="price">${esc(p)}</span>`:''}</div>`).join('');
+  $('atouts').innerHTML=C.atouts.map(([t,d])=>`<li><span class="ck">${svg('check',15,3)}</span><div><b>${esc(t)}</b><span>${esc(d)}</span></div></li>`).join('');
+  const g=C.photos.slice(1);
+  $('gallery').className='gallery'+(g.length<5?' n3':'');
+  $('gallery').innerHTML=g.map((id,i)=>`<button type="button" data-src="${P(id)}" aria-label="Agrandir la photo"><img src="${P(id)}" alt="${esc(C.legendes[i]||'')}" loading="lazy">${C.legendes[i]?`<figcaption>${esc(C.legendes[i])}</figcaption>`:''}</button>`).join('');
+  $('reviews').innerHTML=C.avis.map(([n,t])=>`<div class="review"><div class="gstars">★★★★★</div><p>« ${esc(t)} »</p><div class="who"><span class="avatar">${esc(n[0])}</span><div>${esc(n)}<small>Avis Google · exemple</small></div></div></div>`).join('');
+  $('faq').innerHTML=C.faq.map(([q,a],i)=>`<details${i===0?' open':''}><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('');
+  $('zone').innerHTML=C.zone.map(z=>`<span>${esc(z)}</span>`).join('');
+  const [la,lo]=C.coords, dl=.035, dg=.055;
+  $('map').src=`https://www.openstreetmap.org/export/embed.html?bbox=${lo-dg},${la-dl},${lo+dg},${la+dl}&layer=mapnik&marker=${la},${lo}`;
+  const today=(new Date().getDay()+6)%7;
+  $('hours').innerHTML=(C.horairesLabel?`<tr><td colspan="2" style="color:var(--muted)">${esc(C.horairesLabel)}</td></tr>`:'')+C.horaires.map((h,i)=>`<tr class="${i===today?'today':''}"><td>${JOURS[i]}</td><td>${esc(fmtPlage(h))}</td></tr>`).join('');
+  $('besoin').innerHTML=C.besoins.map(b=>`<option>${esc(b)}</option>`).join('');
+  $('formOk').style.display='none';
+  $('roiVal').value=C.roiVal; $('roiNb').value=C.roiNb; roi(C);
+  document.querySelectorAll('.chip[data-m]').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.m===current)));
+}
+
+(function init(){
+  $('year').textContent=new Date().getFullYear();
+  document.querySelectorAll('[data-i]').forEach(el=>el.innerHTML=svg(el.dataset.i,18));
+  document.querySelectorAll('.ico[data-i]').forEach(el=>el.innerHTML=svg(el.dataset.i,20));
+  // vendeur
+  document.querySelectorAll('[data-s]').forEach(el=>el.textContent=VENDEUR[el.dataset.s]);
+  document.querySelectorAll('[data-s-tel]').forEach(el=>el.href='tel:'+VENDEUR.tel);
+  document.querySelectorAll('[data-s-sms]').forEach(el=>el.href='sms:'+VENDEUR.tel+'?body='+encodeURIComponent("Bonjour, j'ai vu l'exemple de site et je suis intéressé(e)."));
+  document.querySelectorAll('[data-s-mail]').forEach(el=>el.href='mailto:'+VENDEUR.email+'?subject='+encodeURIComponent('Mon site internet'));
+  $('incl').innerHTML=VENDEUR.inclus.map(t=>`<li>${svg('check',18,2.6)}<span>${esc(t)}</span></li>`).join('');
+  $('faqOffre').innerHTML=VENDEUR.faq.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('');
+  // interactions
+  $('devis').addEventListener('submit',e=>{e.preventDefault();$('formOk').style.display='block';});
+  $('mentions').addEventListener('click',e=>{e.preventDefault();alert('Page « Mentions légales » : nom, SIRET, adresse, hébergeur et responsable de publication. Incluse dans votre site.');});
+  ['roiVal','roiNb'].forEach(id=>$(id).addEventListener('input',()=>roi()));
+  $('gallery').addEventListener('click',e=>{const b=e.target.closest('button[data-src]'); if(!b) return; const lb=$('lightbox'); lb.querySelector('img').src=b.dataset.src; lb.classList.add('on');});
+  $('lightbox').addEventListener('click',()=>$('lightbox').classList.remove('on'));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape') $('lightbox').classList.remove('on');});
+  const setWhy=on=>{document.body.classList.toggle('explain',on); $('whyTxt').textContent=on?'Masquer les explications':'Pourquoi ce site attire des clients';};
+  $('whyToggle').addEventListener('click',()=>{const on=!document.body.classList.contains('explain'); setWhy(on); if(on) window.scrollTo({top:0,behavior:'smooth'});});
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(([e])=>document.body.classList.toggle('in-offre',e.isIntersecting),{rootMargin:'0px 0px -40% 0px'}).observe($('offre'));
+  }
+  const params=new URLSearchParams(location.search);
+  if(params.get('x')==='1') setWhy(true);
+
+  if(MODE_LIVRAISON){
+    ['demobar','offre','whyToggle'].forEach(id=>$(id).remove());
+    document.querySelectorAll('.why').forEach(el=>el.remove());
+    document.querySelector('meta[name=robots]').remove();
+    render(MODE_LIVRAISON);
+    return;
+  }
+  $('chips').innerHTML=Object.keys(METIERS).map(k=>`<button class="chip" type="button" data-m="${k}">${esc(METIERS[k].label||NEUTRE.label)}</button>`).join('');
+  $('chips').addEventListener('click',e=>{
+    const b=e.target.closest('.chip[data-m]'); if(!b) return;
+    render(b.dataset.m);
+    const u=new URL(location.href); if(current==='neutre') u.searchParams.delete('m'); else u.searchParams.set('m',current);
+    history.replaceState(null,'',u);
+  });
+  render(params.get('m'));
+  const actif=document.querySelector('.chip[aria-pressed="true"]');
+  if(actif && current!=='neutre') actif.closest('.wrap').scrollLeft = actif.offsetLeft - 16;
+})();
+</script>
+</body>
+</html>
